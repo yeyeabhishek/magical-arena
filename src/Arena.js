@@ -4,6 +4,7 @@ class Arena {
     constructor(player1, player2) {
         this.player1 = player1;
         this.player2 = player2;
+        this.turnCounter = 1;
     }
 
     fight() {
@@ -13,8 +14,10 @@ class Arena {
         console.log("Battle Start!");
 
         while (attacker.isAlive() && defender.isAlive()) {
+            console.log(`Turn ${this.turnCounter}:  Attacker ${attacker.name}`)
             this.turn(attacker, defender);
             [attacker, defender] = [defender, attacker];
+            this.turnCounter++;
         }
 
         const winner = attacker.isAlive() ? attacker : defender;
