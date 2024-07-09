@@ -1,24 +1,27 @@
 class Player {
     constructor(name, health, strength, attack) {
+        if (health <= 0 || strength <= 0 || attack <= 0) {
+            throw new Error("Health, strength, and attack must be positive integers.");
+        }
         this.name = name;
         this.health = health;
         this.strength = strength;
         this.attack = attack;
     }
 
-    isAlive(){
+    isAlive() {
         return this.health > 0;
     }
 
     diceRoll() {
-        return Math.floor(Math.random() * 6) + 1;
+        const roll = Math.floor(Math.random() * 6) + 1;
+        console.log(`Dice Roll for ${this.name}: ${roll}`);
+        return roll;
     }
 
-    attackDamage(damage) {
-        this.health -= damage;
-        if(this.health < 0) this.health = 0;
+    takeDamage(damage) {
+        this.health = Math.max(this.health - damage, 0);
     }
-
 }
 
 module.exports = Player;
